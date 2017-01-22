@@ -41,7 +41,8 @@ export default class Leaderboard extends React.Component {
       </tr>
     ));
 
-    return (
+    if (!this.state.campers.length) return <div>Loading...</div>;
+    else return (
       <table className="table table-hover">
         <thead>
           <tr>
