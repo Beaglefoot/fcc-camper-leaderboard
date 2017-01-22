@@ -22,7 +22,7 @@ describe('<Leaderboard />', () => {
 
     const wrapper = mount(<Leaderboard />);
     const intervalID = setInterval(() => {
-      if (Leaderboard.prototype.setState.calledOnce) {
+      if (Leaderboard.prototype.setState.calledTwice) {
         expect(wrapper.find('tbody tr')).to.have.length(100);
         done();
       }
