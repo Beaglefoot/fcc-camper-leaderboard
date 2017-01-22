@@ -1,4 +1,5 @@
 import React from 'react';
+import fetch from 'node-fetch';
 
 export default class Leaderboard extends React.Component {
   constructor(props) {
