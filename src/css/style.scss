@@ -1,4 +1,5 @@
 $dark-ocean: #3B8686;
+$sea: #79BD9A;
 
 h1 {
   text-align: center;
@@ -18,4 +19,7 @@ h1 {
 
 .switch {
   cursor: pointer;
+  &:hover {
+    color: $sea;
+  }
 }

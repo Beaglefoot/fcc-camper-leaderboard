@@ -18,6 +18,13 @@ export default class Leaderboard extends React.Component {
       .then(campers => this.setState({ campers }));
   }
 
+  switchGlyphVisibility(target) {
+    target.parentNode.querySelectorAll('.glyphicon').forEach(element => {
+      element.classList.add('hidden');
+    });
+    target.querySelector('.glyphicon').classList.remove('hidden');
+  }
+
   render() {
     const campersList = this.state.campers.map((camper, index) => (
       <tr key={camper.username}>
@@ -42,19 +49,23 @@ export default class Leaderboard extends React.Component {
             <th>Camper</th>
             <th
               className="text-center switch"
-              onClick={() => {
+              onClick={event => {
                 this.fetchNewState('https://fcctop100.herokuapp.com/api/fccusers/top/recent');
+                this.switchGlyphVisibility(event.target);
               }}
             >
-              Past 30 days points
+              Past 30 days points{' '}
+              <span className="glyphicon glyphicon-menu-down" aria-hidden="true" />
             </th>
             <th
               className="text-center switch"
-              onClick={() => {
+              onClick={event => {
                 this.fetchNewState('https://fcctop100.herokuapp.com/api/fccusers/top/alltime');
+                this.switchGlyphVisibility(event.target);
               }}
             >
-              Total points
+              Total points{' '}
+              <span className="glyphicon glyphicon-menu-down hidden" aria-hidden="true" />
             </th>
           </tr>
         </thead>
