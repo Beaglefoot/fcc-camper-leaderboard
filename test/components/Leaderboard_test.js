@@ -31,6 +31,17 @@ describe('<Leaderboard />', () => {
     setTimeout(() => {
       clearInterval(intervalID);
       done('Fetching data takes too long...');
-    }, 1900);
+    }, 1950);
+  });
+
+  it('should fetch new data on switch click', () => {
+    sinon.spy(Leaderboard.prototype, 'fetchNewState');
+    const wrapper = mount(<Leaderboard />);
+    const initialCount = Leaderboard.prototype.fetchNewState.callCount;
+
+    wrapper.find('.switch').last().simulate('click');
+    const finalCount = Leaderboard.prototype.fetchNewState.callCount;
+
+    expect(finalCount - initialCount).to.equal(1);
   });
 });

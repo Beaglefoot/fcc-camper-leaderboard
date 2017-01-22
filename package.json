@@ -21,6 +21,7 @@
     "enzyme": "^2.7.0",
     "html-webpack-plugin": "^2.26.0",
     "jsdom": "^9.9.1",
+    "json-loader": "^0.5.4",
     "mocha": "^3.2.0",
     "node-fetch": "^1.6.3",
     "node-sass": "^4.2.0",

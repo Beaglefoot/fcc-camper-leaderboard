@@ -42,13 +42,17 @@ export default class Leaderboard extends React.Component {
             <th>Camper</th>
             <th
               className="text-center switch"
-              onClick={() => this.fetchNewState('https://fcctop100.herokuapp.com/api/fccusers/top/recent')}
+              onClick={() => {
+                this.fetchNewState('https://fcctop100.herokuapp.com/api/fccusers/top/recent');
+              }}
             >
               Past 30 days points
             </th>
             <th
               className="text-center switch"
-              onClick={() => this.fetchNewState('https://fcctop100.herokuapp.com/api/fccusers/top/alltime')}
+              onClick={() => {
+                this.fetchNewState('https://fcctop100.herokuapp.com/api/fccusers/top/alltime');
+              }}
             >
               Total points
             </th>
