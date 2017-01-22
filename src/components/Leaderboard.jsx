@@ -21,7 +21,9 @@ export default class Leaderboard extends React.Component {
         <td>
           <img src={camper.img} className="img-circle" width="32px" height="32px" />
           {' '}
-          {camper.username}
+          <a href={`http://freecodecamp.com/${camper.username}`}>
+            {camper.username}
+          </a>
         </td>
         <td className="text-center">{camper.recent}</td>
         <td className="text-center">{camper.alltime}</td>
