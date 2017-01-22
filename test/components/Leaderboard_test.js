@@ -23,7 +23,9 @@ describe('<Leaderboard />', () => {
     const wrapper = mount(<Leaderboard />);
     const intervalID = setInterval(() => {
       if (Leaderboard.prototype.setState.calledTwice) {
+        clearInterval(intervalID);
         expect(wrapper.find('tbody tr')).to.have.length(100);
+        Leaderboard.prototype.setState.restore();
         done();
       }
     }, 50);
@@ -31,17 +33,34 @@ describe('<Leaderboard />', () => {
     setTimeout(() => {
       clearInterval(intervalID);
       done('Fetching data takes too long...');
-    }, 1950);
+    }, 3000);
   });
 
-  it('should fetch new data on switch click', () => {
+  it('should fetch new data on switch click', done => {
     sinon.spy(Leaderboard.prototype, 'fetchNewState');
+    sinon.spy(Leaderboard.prototype, 'setState');
+
     const wrapper = mount(<Leaderboard />);
     const initialCount = Leaderboard.prototype.fetchNewState.callCount;
 
-    wrapper.find('.switch').last().simulate('click');
-    const finalCount = Leaderboard.prototype.fetchNewState.callCount;
+    const intervalID = setInterval(() => {
+      if (Leaderboard.prototype.setState.calledOnce) {
+        clearInterval(intervalID);
 
-    expect(finalCount - initialCount).to.equal(1);
+        wrapper.find('.switch').last().simulate('click');
+
+        const finalCount = Leaderboard.prototype.fetchNewState.callCount;
+        expect(finalCount - initialCount).to.equal(1);
+
+        Leaderboard.prototype.fetchNewState.restore();
+        Leaderboard.prototype.setState.restore();
+        done();
+      }
+    }, 50);
+
+    setTimeout(() => {
+      clearInterval(intervalID);
+      done('Fetching data takes too long...');
+    }, 3000);
   });
 });

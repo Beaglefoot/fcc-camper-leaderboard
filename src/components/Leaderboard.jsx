@@ -1,5 +1,6 @@
 import React from 'react';
 import fetch from 'node-fetch';
+import Camper from './Camper';
 
 export default class Leaderboard extends React.Component {
   constructor(props) {
@@ -19,26 +20,18 @@ export default class Leaderboard extends React.Component {
   }
 
   switchGlyphVisibility(target) {
-    target.parentNode.querySelectorAll('.glyphicon').forEach(element => {
-      element.classList.add('hidden');
+    // Workaround for this to work in test environment
+    const nodesCollection = target.parentNode.querySelectorAll('span');
+    Object.keys(nodesCollection).forEach(key => {
+      nodesCollection[key].classList.add('hidden');
     });
+
     target.querySelector('.glyphicon').classList.remove('hidden');
   }
 
   render() {
     const campersList = this.state.campers.map((camper, index) => (
-      <tr key={camper.username}>
-        <th scope="row">{++index}</th>
-        <td>
-          <img src={camper.img} className="img-circle" width="32px" height="32px" />
-          {' '}
-          <a href={`http://freecodecamp.com/${camper.username}`}>
-            {camper.username}
-          </a>
-        </td>
-        <td className="text-center">{camper.recent}</td>
-        <td className="text-center">{camper.alltime}</td>
-      </tr>
+      <Camper key={camper.username} camper={camper} index={index} />
     ));
 
     if (!this.state.campers.length) return <div>Loading...</div>;
