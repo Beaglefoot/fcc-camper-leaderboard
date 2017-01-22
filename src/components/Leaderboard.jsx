@@ -9,7 +9,11 @@ export default class Leaderboard extends React.Component {
   }
 
   componentDidMount() {
-    fetch('https://fcctop100.herokuapp.com/api/fccusers/top/recent')
+    this.fetchNewState('https://fcctop100.herokuapp.com/api/fccusers/top/recent');
+  }
+
+  fetchNewState(url) {
+    fetch(url)
       .then(response => response.json())
       .then(campers => this.setState({ campers }));
   }
@@ -36,8 +40,18 @@ export default class Leaderboard extends React.Component {
           <tr>
             <th>#</th>
             <th>Camper</th>
-            <th className="text-center">Points in the past 30 days</th>
-            <th className="text-center">Total points</th>
+            <th
+              className="text-center switch"
+              onClick={() => this.fetchNewState('https://fcctop100.herokuapp.com/api/fccusers/top/recent')}
+            >
+              Past 30 days points
+            </th>
+            <th
+              className="text-center switch"
+              onClick={() => this.fetchNewState('https://fcctop100.herokuapp.com/api/fccusers/top/alltime')}
+            >
+              Total points
+            </th>
           </tr>
         </thead>
         <tbody>
