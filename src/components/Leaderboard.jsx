@@ -1,5 +1,5 @@
 import React from 'react';
-import fetch from 'node-fetch';
+// import fetch from 'node-fetch';
 import Camper from './Camper';
 
 export default class Leaderboard extends React.Component {
